@@ -3,6 +3,9 @@ import sqlite3
 from datetime import datetime, timedelta
 import uuid
 
+from flask import Flask
+import threading
+
 from telegram import (
     Update,
     InlineKeyboardButton,
@@ -17,6 +20,19 @@ from telegram.ext import (
     ContextTypes,
 )
 
+from flask import Flask
+import threading
+
+flask_app = Flask(__name__)
+
+@flask_app.route("/")
+def home():
+    return "Bot running"
+
+@flask_app.route("/health")
+def health():
+    return "OK", 200
+    
 # ================== НАСТРОЙКИ ==================
 BOT_TOKEN = "8690771289:AAEKOfGBeICFT1Rfex77-QPpxDijbBOjAms"
 MANAGER_ID = 1911945305
@@ -348,7 +364,9 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ================== MAIN ==================
 def main():
     init_db()
-
+    
+    threading.Thread(target=run_web, daemon=True).start()
+    
     app = Application.builder().token(BOT_TOKEN).build()
 
     # команды
@@ -356,9 +374,6 @@ def main():
 
     # кнопки
     app.add_handler(CallbackQueryHandler(button_handler))
-
-    from flask import Flask
-from threading import Thread
 
 web_app = Flask('')
 
