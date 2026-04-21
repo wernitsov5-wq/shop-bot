@@ -2,10 +2,6 @@ import logging
 import sqlite3
 from datetime import datetime, timedelta
 import uuid
-from flask import Flask
-from threading import Thread
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 
 from telegram import (
     Update,
@@ -361,29 +357,24 @@ def main():
     # кнопки
     app.add_handler(CallbackQueryHandler(button_handler))
 
-    # ===== ВЕБ-СЕРВЕР ДЛЯ HEALTH CHECK =====
-    web_app = Flask('')
+    from flask import Flask
+from threading import Thread
 
-    @web_app.route('/')
-    def home():
-        return "✅ Бот работает!"
+web_app = Flask('')
 
-    @web_app.route('/health')
-    def health():
-        return "OK", 200
+@web_app.route('/')
+def home():
+    return "✅ Бот работает!"
 
-    def run_web():
-        web_app.run(host='0.0.0.0', port=10000)
+@web_app.route('/health')
+def health():
+    return "OK", 200
 
-    def keep_alive():
-        t = Thread(target=run_web)
-        t.start()
+def run_web():
+    web_app.run(host='0.0.0.0', port=10000)
 
-    # Запускаем веб-сервер
-    keep_alive()
+def keep_alive():
+    t = Thread(target=run_web)
+    t.start()
 
-    # Запускаем бота
-    app.run_polling()
-
-if __name__ == "__main__":
-    main()
+keep_alive()
