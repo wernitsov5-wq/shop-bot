@@ -122,16 +122,10 @@ async def probnik_menu(update, context):
     ]
     await update.callback_query.edit_message_text("Пробники:", reply_markup=InlineKeyboardMarkup(keyboard))
 
-from zoneinfo import ZoneInfo
-from datetime import datetime, timedelta
-import sqlite3
-import uuid
 # ================== СОЗДАНИЕ ЗАКАЗА ==================
 def create_order(user_id, product, price):
     order_id = str(uuid.uuid4())[:8]
-
-    msk = ZoneInfo("Europe/Moscow")
-    created = datetime.now(msk)
+    created = datetime.now()
     deadline = created + timedelta(minutes=15)
 
     conn = sqlite3.connect(DB_NAME)
@@ -154,7 +148,7 @@ def create_order(user_id, product, price):
     conn.close()
 
     return order_id, deadline
-    
+
 # ================== ОПЛАТА ==================
 async def send_payment(update, context, product, price):
     user_id = update.callback_query.from_user.id
@@ -164,7 +158,7 @@ async def send_payment(update, context, product, price):
 🧾 Заказ №{order_id}
 📦 Товар: {product}
 💰 Сумма: {price}₽
-⏳ Оплатить до (МСК): {deadline.strftime('%H:%M:%S')}
+⏳ Оплатить до: {deadline.strftime('%H:%M')}
 
 💳 Реквизиты:
 Карта: {CARD_NUMBER}
@@ -363,6 +357,28 @@ def main():
     # кнопки
     app.add_handler(CallbackQueryHandler(button_handler))
 
+    # ===== ВЕБ-СЕРВЕР ДЛЯ HEALTH CHECK =====
+    web_app = Flask('')
+
+    @web_app.route('/')
+    def home():
+        return "✅ Бот работает!"
+
+    @web_app.route('/health')
+    def health():
+        return "OK", 200
+
+    def run_web():
+        web_app.run(host='0.0.0.0', port=10000)
+
+    def keep_alive():
+        t = Thread(target=run_web)
+        t.start()
+
+    # Запускаем веб-сервер
+    keep_alive()
+
+    # Запускаем бота
     app.run_polling()
 
 if __name__ == "__main__":
