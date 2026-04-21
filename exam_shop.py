@@ -2,6 +2,10 @@ import logging
 import sqlite3
 from datetime import datetime, timedelta
 import uuid
+from flask import Flask
+from threading import Thread
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 
 from telegram import (
     Update,
