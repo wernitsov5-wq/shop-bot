@@ -37,7 +37,7 @@ def run_web():
     flask_app.run(host="0.0.0.0", port=port)
 
 # ================== НАСТРОЙКИ ==================
-BOT_TOKEN = "ТВОЙ_ТОКЕН_СЮДА"
+BOT_TOKEN = "8690771289:AAEKOfGBeICFT1Rfex77-QPpxDijbBOjAms"
 MANAGER_ID = 1911945305
 
 CARD_NUMBER = "2200 1545 7393 3982"
