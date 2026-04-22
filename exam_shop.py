@@ -3,7 +3,6 @@ import sqlite3
 from datetime import datetime, timedelta
 import uuid
 
-from flask import Flask
 import threading
 
 from telegram import (
@@ -20,23 +19,7 @@ from telegram.ext import (
     ContextTypes,
 )
 
-flask_app = Flask(__name__)
 
-@flask_app.route("/")
-def home():
-    return "Bot running"
-
-@flask_app.route("/health")
-def health():
-    return "OK", 200
-
-from flask import request
-
-@flask_app.post("/webhook")
-async def webhook():
-    update = Update.de_json(request.get_json(force=True), app.bot)
-    await app.process_update(update)
-    return "OK"
     
 # ================== НАСТРОЙКИ ==================
 BOT_TOKEN = "8690771289:AAEKOfGBeICFT1Rfex77-QPpxDijbBOjAms"
@@ -369,20 +352,18 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 import os
 import threading
 
-def run_web():
-    port = int(os.environ.get("PORT", 10000))
-    flask_app.run(host="0.0.0.0", port=port)
 
 def main():
     init_db()
 
-    app = Application.builder().token(BOT_TOKEN).build()
+    application = Application.builder().token(BOT_TOKEN).build()
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(button_handler))
-    app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CallbackQueryHandler(button_handler))
+    application.add_handler(MessageHandler(filters.PHOTO, handle_photo))
 
-    app.run_polling()
+    application.run_polling()
+    
 
 
 if __name__ == "__main__":
