@@ -29,6 +29,14 @@ def home():
 @flask_app.route("/health")
 def health():
     return "OK", 200
+
+from flask import request
+
+@flask_app.post("/webhook")
+async def webhook():
+    update = Update.de_json(request.get_json(force=True), app.bot)
+    await app.process_update(update)
+    return "OK"
     
 # ================== НАСТРОЙКИ ==================
 BOT_TOKEN = "8690771289:AAEKOfGBeICFT1Rfex77-QPpxDijbBOjAms"
@@ -374,7 +382,14 @@ def main():
     app.add_handler(CallbackQueryHandler(button_handler))
     app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
 
-    app.run_polling()
+    app.run_webhook(
+        listen="0.0.0.0",
+        port=int(os.environ.get("PORT", 10000)),
+        url_path="webhook",
+        webhook_url="https://shop-bot-cjap.onrender.com/webhook"
+    )
+
+    
 
 
 if __name__ == "__main__":
