@@ -386,12 +386,8 @@ def main():
         listen="0.0.0.0",
         port=int(os.environ.get("PORT", 10000)),
         url_path="webhook",
-        webhook_url="https://shop-bot-cjap.onrender.com/webhook"
+        webhook_url="https://shop-bot-5mry.onrender.com/webhook"
     )
 
-    
-
-
 if __name__ == "__main__":
-    threading.Thread(target=run_web, daemon=True).start()
     main()
