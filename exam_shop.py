@@ -382,12 +382,8 @@ def main():
     app.add_handler(CallbackQueryHandler(button_handler))
     app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
 
-    app.run_webhook(
-        listen="0.0.0.0",
-        port=int(os.environ.get("PORT", 10000)),
-        url_path="webhook",
-        webhook_url="https://shop-bot-5mry.onrender.com/webhook"
-    )
+    app.run_polling()
+
 
 if __name__ == "__main__":
     main()
