@@ -358,10 +358,16 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await paid_handler(update, context)
 
 # ================== MAIN ==================
+import os
+import threading
+
+def run_web():
+    port = int(os.environ.get("PORT", 10000))
+    flask_app.run(host="0.0.0.0", port=port)
+
 def main():
     init_db()
-    
-    
+
     app = Application.builder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
@@ -371,9 +377,6 @@ def main():
     app.run_polling()
 
 
-def run_web():
-    flask_app.run(host="0.0.0.0", port=10000)
-    
 if __name__ == "__main__":
-    threading.Thread(target=run_web).start()
+    threading.Thread(target=run_web, daemon=True).start()
     main()
