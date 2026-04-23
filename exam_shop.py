@@ -25,7 +25,7 @@ from telegram.ext import (
 BOT_TOKEN = "8690771289:AAEKOfGBeICFT1Rfex77-QPpxDijbBOjAms"
 MANAGER_ID = 1911945305
 
-CARD_NUMBER = "ошибка 322"
+CARD_NUMBER = "ошибка 0000 0000"
 CARD_HOLDER = "Максим"
 BANK_NAME = "Альфа Банк"
 
