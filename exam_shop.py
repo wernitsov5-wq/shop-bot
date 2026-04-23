@@ -22,7 +22,7 @@ from telegram.ext import (
 
     
 # ================== НАСТРОЙКИ ==================
-BOT_TOKEN = "8690771289:AAEKOfGBeICFT1Rfex77-QPpxDijbBOjAms"
+BOT_TOKEN = "8690771289:AAEWDyiIR0jdvYZQ6zu1NVXEbLbJy5tDxmk"
 MANAGER_ID = 1911945305
 
 CARD_NUMBER = "79262713302"
