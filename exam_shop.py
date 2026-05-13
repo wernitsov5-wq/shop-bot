@@ -26,7 +26,7 @@ BOT_TOKEN = "8690771289:AAEWDyiIR0jdvYZQ6zu1NVXEbLbJy5tDxmk"
 MANAGER_ID = 1911945305
 
 CARD_NUMBER = "79099868133"
-CARD_HOLDER = "Максим"
+CARD_HOLDER = "комментарий оставлять запрещено"
 BANK_NAME = "Юмани:"
 
 PRIVACY_URL = "https://telegra.ph/SOGLASHENIE-05-26-4"
