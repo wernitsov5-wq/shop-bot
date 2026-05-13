@@ -22,12 +22,12 @@ from telegram.ext import (
 
     
 # ================== НАСТРОЙКИ ==================
-BOT_TOKEN = "8690771289:AAEWDyiIR0jdvYZQ6zu1NVXEbLbJy5tDxmk"
+BOT_TOKEN = "8690771289:AAFU9yw7lF9wNiI3GxldiyLkwYgw_6yvuaY"
 MANAGER_ID = 1911945305
 
 CARD_NUMBER = "79099868133"
 CARD_HOLDER = "комментарий оставлять запрещено"
-BANK_NAME = "Юмани:"
+BANK_NAME = "Юмани"
 
 PRIVACY_URL = "https://telegra.ph/SOGLASHENIE-05-26-4"
 AGREEMENT_URL = "https://telegra.ph/SOGLASHENIE-05-26-4"
