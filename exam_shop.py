@@ -351,7 +351,26 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ================== MAIN ==================
 import os
 import threading
+from flask import Flask
+from threading import Thread
 
+# ===== FLASK ДЛЯ RENDER (HEALTH CHECK) =====
+flask_app = Flask('')
+
+@flask_app.route('/')
+def home():
+    return "✅ Бот работает!"
+
+@flask_app.route('/health')
+def health():
+    return "OK", 200
+
+def run_flask():
+    flask_app.run(host='0.0.0.0', port=10000)
+
+def keep_alive():
+    t = Thread(target=run_flask)
+    t.start()
 
 def main():
     init_db()
@@ -362,9 +381,11 @@ def main():
     application.add_handler(CallbackQueryHandler(button_handler))
     application.add_handler(MessageHandler(filters.PHOTO, handle_photo))
 
-    application.run_polling()
+    # Запускаем Flask в фоне
+    keep_alive()
     
-
+    # Запускаем бота
+    application.run_polling()
 
 if __name__ == "__main__":
     main()
