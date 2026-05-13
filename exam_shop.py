@@ -25,9 +25,9 @@ from telegram.ext import (
 BOT_TOKEN = "8690771289:AAEWDyiIR0jdvYZQ6zu1NVXEbLbJy5tDxmk"
 MANAGER_ID = 1911945305
 
-CARD_NUMBER = "2200701510652990"
-CARD_HOLDER = "Денис"
-BANK_NAME = "Т-Банк"
+CARD_NUMBER = "79099868133"
+CARD_HOLDER = "Максим"
+BANK_NAME = "Юмани:"
 
 PRIVACY_URL = "https://telegra.ph/SOGLASHENIE-05-26-4"
 AGREEMENT_URL = "https://telegra.ph/SOGLASHENIE-05-26-4"
